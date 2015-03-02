@@ -1,10 +1,13 @@
 from django.http import JsonResponse
 from rest_framework.views import APIView
+from player.documents import Player
 
 __author__ = 't'
 
 class Main(APIView):
     def get(self, request, *args, **kwargs):
+        p = Player()
+        p.save()
         return JsonResponse([{
           'id': 1,
           'name': 'Wladimir',
