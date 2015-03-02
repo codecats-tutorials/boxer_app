@@ -6,6 +6,10 @@ __author__ = 't'
 class Player(mongoengine.Document):
     name = mongoengine.StringField(max_length=255)
     surname = mongoengine.StringField(max_length=255)
+    def as_json(self):
+        return dict(
+            id=str(self.pk), name=self.name, surname=self.surname
+        )
     #
     # 'id': 1,
     #       'name': 'Wladimir',

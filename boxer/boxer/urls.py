@@ -4,9 +4,9 @@ import main
 
 urlpatterns = patterns('',
     url(r'^', include('main.urls'), name='main'),
-    url(r'^players/', include('player.urls'), name='player'),
-    url(r'^acl/', include('acl.urls'), name='acl'),
-    url(r'^organizations/', include('organizations.urls'), name='organizations'),
+    url(r'^players/?', include('player.urls'), name='player'),
+    url(r'^acl/?', include('acl.urls'), name='acl'),
+    url(r'^organizations/?', include('organizations.urls'), name='organizations'),
 
     #remove after develop front app finished
     url(r'^(?P<resource>.+((\.js)|(\.css)|(\.css\.map)|(\.ttf)|(\.woff)|(\.woff2)))$', include('front_serve.urls'), name='front_serve'),
