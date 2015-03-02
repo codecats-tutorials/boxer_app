@@ -4,11 +4,15 @@ __author__ = 't'
 
 
 class Player(mongoengine.Document):
-    name = mongoengine.StringField(max_length=255)
-    surname = mongoengine.StringField(max_length=255)
+    name = mongoengine.StringField(max_length=255, required=True)
+    surname = mongoengine.StringField(max_length=255, required=True)
+    #todo: check new fields
+    avatar = mongoengine.URLField()
+    champion = mongoengine.ListField(mongoengine.StringField(max_length=30))
     def as_json(self):
         return dict(
-            id=str(self.pk), name=self.name, surname=self.surname
+            id=str(self.pk), name=self.name, surname=self.surname,
+            champion=self.champion
         )
     #
     # 'id': 1,
