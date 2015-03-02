@@ -7,8 +7,12 @@ __author__ = 't'
 
 class Main(APIView):
     def get(self, request, *args, **kwargs):
-        data = Player.objects.all()
-        return JsonResponse(map(lambda x: x.as_json(), data), safe=False)
+        if kwargs.get('id', False):
+            player = Player.objects(pk=kwargs.get('id')).limit(1)[0]
+            return JsonResponse(player.as_json())
+        else:
+            data = Player.objects.only('name', 'surname').all().limit(20)
+            return JsonResponse(map(lambda x: x.as_json(), data), safe=False)
 
     def post(self, request, *args, **kwargs):
         data = request.DATA.copy()
