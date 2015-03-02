@@ -12,12 +12,27 @@ class Main(APIView):
 
     def post(self, request, *args, **kwargs):
         data = request.DATA.copy()
-        player = Player(**data)
-        player.save()
-        return JsonResponse(data)
+        serializer = PlayerSerializer(data=data)
+        if serializer.is_valid():
+            player = serializer.save()
+            player.save()
+            return JsonResponse(player.as_json())
+        else:
+            data['errors'] = serializer.errors
+            return JsonResponse(data)
 
     def put(self, request, *args, **kwargs):
-        pass
+        data = request.DATA.copy()
+        player = Player.objects(pk=data.get('id')).limit(1)[0]
+        serializer = PlayerSerializer(player, data=data)
+        if serializer.is_valid():
+            player = serializer.save()
+            player.save()
+            return JsonResponse(player.as_json())
+        else:
+            data['errors'] = serializer.errors
+            return JsonResponse(data)
 
     def delete(self, request, *args, **kwargs):
-        pass
+        Player.objects(pk=kwargs.get('id')).delete()
+        return JsonResponse(kwargs)
