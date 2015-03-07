@@ -27,6 +27,7 @@ class Main(APIView):
 
     def put(self, request, *args, **kwargs):
         data = request.DATA.copy()
+        data['date_dele'] = '2015/2/2'
         player = Player.objects(pk=data.get('id')).limit(1)[0]
         serializer = PlayerSerializer(player, data=data)
         if serializer.is_valid():

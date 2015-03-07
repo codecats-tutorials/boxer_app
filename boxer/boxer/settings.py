@@ -40,7 +40,7 @@ INSTALLED_APPS = (
 
     'main',
 
-    'front_serve',
+    # 'front_serve',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -95,12 +95,10 @@ MEDIA_ROOT = PROJECT_PATH + '/media/'
 
 TEMPLATE_DIRS = (
     PROJECT_PATH + '/templates/',
-    PROJECT_PATH + '/../front/app/',
+    PROJECT_PATH + '/../%s/app/'%STATIC_URL.strip('/'),
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL.strip("/"))
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, "front"),
-    os.path.join(BASE_DIR, "front/app"),
 )
