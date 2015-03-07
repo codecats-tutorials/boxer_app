@@ -14,10 +14,14 @@ class Player(mongoengine.Document):
             id=str(self.pk), name=self.name, surname=self.surname,
             champion=self.champion, avatar=self.avatar
         )
-    #
-    # 'id': 1,
-    #       'name': 'Wladimir',
-    #       'surname': 'Klitschko',
-    #       'champion': ['IBF', 'WBA'],
-    #       'avatar': 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTd0CPzV7QBK5hhN2WT9YTdeqmnml6UT5OSDKC3YGqqXI5cnWqK'
-    #     }], safe=False)
+
+    def save(self, force_insert=False, validate=True, clean=True,
+             write_concern=None,  cascade=None, cascade_kwargs=None,
+             _refs=None, **kwargs):
+
+        if self.champion is not None and isinstance(self.champion, set):
+            self.champion = list(self.champion)
+
+        super(Player, self).save(
+            force_insert, validate, clean, write_concern, cascade, cascade_kwargs, _refs, **kwargs
+        )
