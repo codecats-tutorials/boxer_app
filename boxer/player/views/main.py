@@ -11,7 +11,7 @@ class Main(APIView):
             player = Player.objects(pk=kwargs.get('id')).limit(1)[0]
             return JsonResponse(player.as_json())
         else:
-            data = Player.objects.only('name', 'surname', 'champion').all().limit(20)
+            data = Player.objects.only('name', 'surname', 'champion', 'avatar').all().limit(20)
             return JsonResponse(map(lambda x: x.as_json(), data), safe=False)
 
     def post(self, request, *args, **kwargs):
@@ -27,7 +27,8 @@ class Main(APIView):
 
     def put(self, request, *args, **kwargs):
         data = request.DATA.copy()
-        data['date_dele'] = '2015/2/2'
+        if 'champion' in data and not data['champion']:
+            data['champion'] = None
         player = Player.objects(pk=data.get('id')).limit(1)[0]
         serializer = PlayerSerializer(player, data=data)
         if serializer.is_valid():

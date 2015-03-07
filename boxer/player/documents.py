@@ -7,12 +7,12 @@ class Player(mongoengine.Document):
     name = mongoengine.StringField(max_length=255, required=True)
     surname = mongoengine.StringField(max_length=255, required=True)
     #todo: check new fields
-    avatar = mongoengine.URLField()
-    champion = mongoengine.ListField(mongoengine.StringField(max_length=30))
+    avatar = mongoengine.StringField(required=False)
+    champion = mongoengine.ListField(mongoengine.StringField(max_length=30), required=False)
     def as_json(self):
         return dict(
             id=str(self.pk), name=self.name, surname=self.surname,
-            champion=self.champion
+            champion=self.champion, avatar=self.avatar
         )
     #
     # 'id': 1,
