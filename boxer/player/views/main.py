@@ -9,10 +9,10 @@ class Main(APIView):
     def get(self, request, *args, **kwargs):
         if kwargs.get('id', False):
             player = Player.objects(pk=kwargs.get('id')).limit(1)[0]
-            return JsonResponse(player.as_json())
+            return JsonResponse(PlayerSerializer(player).data)
         else:
             data = Player.objects.only('name', 'surname', 'champion', 'avatar').all().limit(20)
-            return JsonResponse(map(lambda x: x.as_json(), data), safe=False)
+            return JsonResponse(map(lambda x: PlayerSerializer(x).data, data), safe=False)
 
     def post(self, request, *args, **kwargs):
         data = request.DATA.copy()
@@ -20,7 +20,7 @@ class Main(APIView):
         if serializer.is_valid():
             player = serializer.save()
             player.save()
-            return JsonResponse(player.as_json())
+            return JsonResponse(PlayerSerializer(player).data)
         else:
             data['errors'] = serializer.errors
             return JsonResponse(data)
@@ -34,7 +34,7 @@ class Main(APIView):
         if serializer.is_valid():
             player = serializer.save()
             player.save()
-            return JsonResponse(player.as_json())
+            return JsonResponse(serializer.data)
         else:
             data['errors'] = serializer.errors
             return JsonResponse(data)
