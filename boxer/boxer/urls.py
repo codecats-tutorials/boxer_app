@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     url(r'^players/?', include('player.urls'), name='player'),
     url(r'^acl/?', include('acl.urls'), name='acl'),
     url(r'^organizations/?', include('organizations.urls'), name='organizations'),
+    url(r'^users/?', include('userprofile.urls'), name='users'),
 
     url(r'^admin/', include(admin.site.urls)),
 )

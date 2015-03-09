@@ -39,8 +39,10 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'main',
+    'organizations',
+    'userprofile',
 
-    # 'front_serve',
+    'mongoengine.django.mongo_auth',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -102,3 +104,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL.strip("/"))
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "front"),
 )
+
+AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
+
+AUTHENTICATION_BACKENDS = (
+    'mongoengine.django.auth.MongoEngineBackend',
+)
+
+SESSION_ENGINE = 'mongoengine.django.sessions'
