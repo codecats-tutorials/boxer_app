@@ -11,17 +11,16 @@ class PlayerSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=10)
     surname = serializers.CharField(max_length=200)
     avatar = serializers.CharField(allow_null=True)
-    birthdate = serializers.DateTimeField(required=False)
-    champion = serializers.MultipleChoiceField(allow_null=True, choices=ORGANIZATIONS, required=False)
-    reach = serializers.IntegerField(allow_null=True, max_value=250, min_value=150)
-    height = serializers.IntegerField(allow_null=True, max_value=250, min_value=150)
-    description = serializers.CharField(allow_null=True, max_length=4096)
+    birthdate = serializers.DateTimeField(required=False, allow_null=True)
+    champion = serializers.MultipleChoiceField(required=False, allow_null=True, choices=ORGANIZATIONS)
+    reach = serializers.IntegerField(required=False, allow_null=True, max_value=250, min_value=150)
+    height = serializers.IntegerField(required=False, allow_null=True, max_value=250, min_value=150)
+    description = serializers.CharField(required=False, allow_null=True, max_length=4096)
     division = serializers.ChoiceField(
         allow_null=True, required=False,
-        choices=(('', ''))
-       #choices=({'value': 1, 'label': u'Ciężka'}, {'value': 2, 'label': u''})
+        choices=Player.DIVISIONS
     )
-    stance = serializers.CharField(allow_null=True, max_length=20)
+    stance = serializers.CharField(required=False, allow_null=True, max_length=20)
 
     def update(self, instance, validated_data):
         for v in validated_data:
@@ -35,4 +34,6 @@ class PlayerSerializer(serializers.Serializer):
         represent = super(PlayerSerializer, self).to_representation(instance)
         if 'champion' in represent:
             represent['champion'] = list(represent['champion'])
+        if 'division' in  represent:
+            represent['division'] = {'value': represent['division']}
         return represent

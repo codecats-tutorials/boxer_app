@@ -29,6 +29,8 @@ class Main(APIView):
         data = request.DATA.copy()
         if 'champion' in data and not data['champion']:
             data['champion'] = None
+        if 'division' in data:
+            data['division'] = data['division']['value']
         player = Player.objects(pk=data.get('id')).limit(1)[0]
         serializer = PlayerSerializer(player, data=data)
         if serializer.is_valid():
