@@ -23,7 +23,7 @@ virtualenv venv
 ```
 Activate it
 ```bash
-source $_/bin/activate
+source venv/bin/activate
 ```
 Go to backend content
 ```bash
@@ -56,4 +56,12 @@ Collect static files
 Run server for check if everything is ok.
 ```bash
 ./manage.py runserver
+```
+
+**run celery**
+ - add to supervisor celery worker
+
+tests: 
+```bash
+(venv)boxer_app/boxer$ celery --app=boxer.celery:app worker --loglevel=INFO 
 ```

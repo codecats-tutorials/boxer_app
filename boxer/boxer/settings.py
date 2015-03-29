@@ -37,10 +37,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'kombu.transport.django.KombuAppConfig',
 
     'main',
     'organizations',
     'userprofile',
+    'player',
 
     'mongoengine.django.mongo_auth',
 )
@@ -70,7 +73,7 @@ DATABASES = {
     },
 }
 
-mongo_connect('boxer')
+mongo_connect('boxer_app')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -113,3 +116,13 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SESSION_ENGINE = 'mongoengine.django.sessions'
+
+
+# CELERY SETTINGS
+BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+CELERY_RESULT_BACKEND = "amqp://"
+CELERY_ACCEPT_CONTENT = ['json', 'pickle']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+#from kombu import serialization
+#serialization.registry._decoders.pop("application/x-python-serialize")
