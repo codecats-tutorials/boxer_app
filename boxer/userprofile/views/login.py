@@ -4,6 +4,7 @@ from mongoengine import DoesNotExist
 from mongoengine.django.auth import User
 from rest_framework.views import APIView
 from userprofile.documents import UserProfile
+from userprofile.serializers import LoginSerializer
 from userprofile.views.authentication_mixin import AuthenticationMixin
 
 __author__ = 't'
@@ -16,6 +17,7 @@ class LoginView(APIView, AuthenticationMixin):
     def post(self, request, *args, **kwargs):
         errors = {'loginError': []}
         user = None
+        return JsonResponse(LoginSerializer().to_representation(user))
         try:
             user = UserProfile.objects.get(email=request.DATA.get('email'))
         except DoesNotExist:

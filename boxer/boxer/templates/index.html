@@ -131,7 +131,7 @@
        ga('send', 'pageview');
     </script>
 
-    <!-- build:js(.) scripts/vendor.js -->
+    <!-- build:js(.) app/scripts/vendor.js -->
     <!-- bower:js -->
     <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.js"></script>
     <script src="{{ STATIC_URL }}bower_components/angular/angular.js"></script>
@@ -155,7 +155,7 @@
 
     <script src="{{ STATIC_URL }}app/scripts/widgets.js"></script>
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <!-- build:js({.tmp,app}) app/scripts/app/scripts.js -->
         <script src="{{ STATIC_URL }}app/scripts/app.js"></script>
         <script src="{{ STATIC_URL }}app/scripts/controllers/main.js"></script>
         <script src="{{ STATIC_URL }}app/scripts/controllers/about.js"></script>
@@ -177,6 +177,6 @@
         <script src="{{ STATIC_URL }}app/scripts/services/coach.js"></script>
         <script src="{{ STATIC_URL }}app/scripts/services/event.js"></script>
         <!-- endbuild -->
-{#        <script src="{{ STATIC_URL }}scripts/mocks.js"></script>#}
+{#        <script src="{{ STATIC_URL }}app/scripts/mocks.js"></script>#}
 </body>
 </html>
