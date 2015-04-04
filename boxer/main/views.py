@@ -1,11 +1,18 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from player.documents import Player
+from player.serializers.main import PlayerSerializer
 
 
 class Main(TemplateView):
     template_name = 'index.html'
 
     def get(self, request, *args, **kwargs):
+        if request.is_ajax():
+            players = Player.objects().only('avatar', 'name', 'surname').limit(4)
+            data = map(lambda p: {'description': 'bbb bb'*10, 'player': PlayerSerializer(p).data}, players)
+            return JsonResponse(data, safe=False)
         return self.render_to_response({})
 
 

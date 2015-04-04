@@ -1,5 +1,6 @@
 from django.contrib.auth import login
 from django.http import HttpResponse, JsonResponse
+from mongoengine import DoesNotExist
 from mongoengine.django.auth import User
 from rest_framework.views import APIView
 from userprofile.documents import UserProfile
@@ -13,8 +14,15 @@ class LoginView(APIView, AuthenticationMixin):
         return JsonResponse(self.get_authentication_representation(request))
 
     def post(self, request, *args, **kwargs):
-        user = UserProfile.objects.get(email=request.DATA.get('email'))
-        if user.check_password(request.DATA.get('password')):
+        errors = {'loginError': []}
+        user = None
+        try:
+            user = UserProfile.objects.get(email=request.DATA.get('email'))
+        except DoesNotExist:
+            errors['loginError'].append('User not found!')
+        if user is not None and user.check_password(request.DATA.get('password')):
             login(request, user)
             #request.session.set_expiry(60 * 60 * 1)
-        return JsonResponse(self.get_authentication_representation(request))
+        auth = self.get_authentication_representation(request)
+        auth.update(errors)
+        return JsonResponse(auth)

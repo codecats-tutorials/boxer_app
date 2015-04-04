@@ -73,7 +73,7 @@ DATABASES = {
     },
 }
 
-mongo_connect('boxer_app')
+mongo_connect('boxer')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/

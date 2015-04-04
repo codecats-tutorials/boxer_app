@@ -11,54 +11,93 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="{{ STATIC_URL }}bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}bower_components/angular-motion/dist/angular-motion.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}bower_components/fullcalendar/dist/fullcalendar.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}bower_components/spinkit/css/spinkit.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}bower_components/angular-spinkit/build/angular-spinkit.min.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="{{ STATIC_URL }}app/styles/main.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}app/styles/animate.css">
     <!-- endbuild -->
   </head>
-  <body>
+  <body class="animated fadeIn">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
     <div class="header">
-      <div class="navbar navbar-default" role="navigation">
+      <div class="navbar navbar-default bg" role="navigation">
         <div class="container">
-          <div class="navbar-header">
 
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="#/">proj</a>
-          </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
-            <div class="pull-right" ng-show="user.isAuthenticated">
-              <a href='' class="btn btn-link">{$ user.email $}</a>
-              <a href="" class="btn btn-link" ng-click="logout()">wyloguj</a>
-              <button id="hide-controls" ng-click="hideControls($event)"
-                class="pull-right glyphicon glyphicon-eye-open"
-                ng-show="acl.resources.BOXERS === true || acl.resources.BOXERS === false"
-              ></button>
-            </div>
-            <div class="pull-right" ng-hide="user.isAuthenticated" ng-include="'views/forms/login.html'">
+            <div class="row">
+              <div class="col-md-1">
+                <div class="navbar-header">
+
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+
+                  <a class="navbar-brand" href="#/">Boxer</a>
+                </div>
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-4">
+                <!-- {search -->
+                <form class="form form-horizontal">
+                  <div class="form-group col-md-10">
+                    <input type="text" class="form-control" placeholder="Szukaj...">
+                  </div><!-- /input-group -->
+                  <span class="form-group col-md-2">
+                    <button class="btn btn-success glyphicon glyphicon-search" type="button"> Idź</button>
+                  </span>
+                </form>
+                <!-- search} -->
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-5">
+                <div class="pull-right" ng-show="user.isAuthenticated">
+                  <a href='' class="btn btn-link">{$ user.email $}</a>
+                  <a href="" class="btn btn-link" ng-click="logout()">wyloguj</a>
+                  <button id="hide-controls" ng-click="hideControls($event)"
+                    class="pull-right glyphicon glyphicon-eye-open"
+                    ng-show="acl.resources.BOXERS === true || acl.resources.BOXERS === false"
+                  ></button>
+                </div>
+                <div class="pull-right" ng-hide="user.isAuthenticated" ng-include="'views/forms/login.html'">
+                </div>
+              </div>
             </div>
 
-            <ul class="nav navbar-nav">
-              <li ng-class="{active: activeTab == 'main'}"><a href="#/">Home</a></li>
-              <li ng-class="{active: activeTab == 'players'}"><a href="#/players">Zawodnicy</a></li>
-              <li ng-class="{active: activeTab == 'coaches'}"><a href="#/coaches">Trenerzy</a></li>
-              <li ng-class="{active: activeTab == 'tickets'}"><a href="#/tickets">Bilety</a></li>
-              <li ng-class="{active: activeTab == 'agenda'}"><a href="#/agenda">Terminarz walk</a></li>
-              <li ng-class="{active: activeTab == 'gym'}"><a href="#/gym">Sala treningowa</a></li>
-              <li ng-class="{active: activeTab == 'about'}"><a href="#/about">Kontakt</a></li>
-            </ul>
+
+              <ul class="nav navbar-nav">
+                <li ng-class="{active: activeTab == 'main'}">
+                  <a class="glyphicon glyphicon-home btn-xs" href="#/">Home</a>
+                </li>
+                <li ng-class="{active: activeTab == 'players'}">
+                  <a class="glyphicon glyphicon-certificate btn-xs" href="#/players">Zawodnicy</a>
+                </li>
+                <li ng-class="{active: activeTab == 'coaches'}">
+                  <a class="glyphicon glyphicon-paste btn-xs" href="#/coaches">Trenerzy</a>
+                </li>
+                <!--<li ng-class="{active: activeTab == 'tickets'}">-->
+                  <!--<a class="glyphicon glyphicon-open-file btn-xs" href="#/tickets">Bilety</a>-->
+                <!--</li>-->
+                <li ng-class="{active: activeTab == 'agenda'}">
+                  <a class="glyphicon glyphicon-blackboard btn-xs" href="#/agenda">Terminarz</a>
+                </li>
+                <li ng-class="{active: activeTab == 'about'}">
+                  <a class="glyphicon glyphicon-earphone btn-xs" href="#/about">Kontakt</a>
+                </li>
+              </ul>
+
+
           </div>
         </div>
       </div>
@@ -69,10 +108,17 @@
 
     <div class="footer">
       <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+        <h6 class="text-center"><span class="glyphicon glyphicon-heart"></span> ... Thanks to ... <span class="glyphicon glyphicon-heart"></span></h6>
+        <br>
+        <p class="pull-right">Django <span class="glyphicon glyphicon-heart"></span></p>
+        <p><span class="glyphicon glyphicon-heart"></span> AngularJS</p>
+        <p class="pull-right">MongoDB <span class="glyphicon glyphicon-heart"></span></p>
+        <p><span class="glyphicon glyphicon-heart"></span> Elasticsearch</p>
+        <p class="pull-right">Yeoman <span class="glyphicon glyphicon-heart"></span></p>
+        <br>
+        <h6 class="text-center"><span class="glyphicon glyphicon-heart"></span> ... and more ... <span class="glyphicon glyphicon-heart"></span></h6>
       </div>
     </div>
-
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -98,9 +144,16 @@
     <script src="{{ STATIC_URL }}bower_components/angular-touch/angular-touch.js"></script>
     <script src="{{ STATIC_URL }}bower_components/angular-strap/dist/angular-strap.js"></script>
     <script src="{{ STATIC_URL }}bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/moment/moment.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/fullcalendar/dist/fullcalendar.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/angular-spinkit/build/angular-spinkit.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <script src="{{ STATIC_URL }}bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+    <script src="{{ STATIC_URL }}app/scripts/widgets.js"></script>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="{{ STATIC_URL }}app/scripts/app.js"></script>
@@ -120,6 +173,9 @@
         <script src="{{ STATIC_URL }}app/scripts/services/player.js"></script>
         <script src="{{ STATIC_URL }}app/scripts/controllers/player-view.js"></script>
         <script src="{{ STATIC_URL }}app/scripts/services/user.js"></script>
+        <script src="{{ STATIC_URL }}app/scripts/services/restresource.js"></script>
+        <script src="{{ STATIC_URL }}app/scripts/services/coach.js"></script>
+        <script src="{{ STATIC_URL }}app/scripts/services/event.js"></script>
         <!-- endbuild -->
 {#        <script src="{{ STATIC_URL }}scripts/mocks.js"></script>#}
 </body>
