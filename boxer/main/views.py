@@ -10,8 +10,10 @@ class Main(TemplateView):
 
     def get(self, request, *args, **kwargs):
         if request.is_ajax():
-            players = Player.objects().only('avatar', 'name', 'surname').limit(4)
-            data = map(lambda p: {'description': 'bbb bb'*10, 'player': PlayerSerializer(p).data}, players)
+            data = map(lambda p: {
+                'description': 'bbb bb'*10,
+                'player': PlayerSerializer.to_representation_raw(p)
+            }, Player.champions())
             return JsonResponse(data, safe=False)
         return self.render_to_response({})
 

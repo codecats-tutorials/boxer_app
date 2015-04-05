@@ -37,3 +37,9 @@ class PlayerSerializer(serializers.Serializer):
         if 'division' in  represent:
             represent['division'] = {'value': represent['division']}
         return represent
+
+    @classmethod
+    def to_representation_raw(cls, instance):
+        for key, val in instance.iteritems():
+            instance[unicode(key)] = unicode(val)
+        return instance

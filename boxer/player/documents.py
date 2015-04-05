@@ -2,7 +2,7 @@
 
 import mongoengine
 from mongoengine.queryset.manager import queryset_manager
-from player.doc_managers import OrganizationsManager
+from player.doc_managers import OrganizationsManager, get_all_champions
 
 __author__ = 't'
 
@@ -24,6 +24,10 @@ class Player(mongoengine.Document):
     @classmethod
     def organizations(cls):
         return OrganizationsManager.get_all(cls)
+
+    @classmethod
+    def champions(cls, skip=0, limit=10, **kwargs):
+        return get_all_champions(cls, skip, limit, **kwargs)['result']
 
     def save(self, force_insert=False, validate=True, clean=True,
              write_concern=None,  cascade=None, cascade_kwargs=None,
