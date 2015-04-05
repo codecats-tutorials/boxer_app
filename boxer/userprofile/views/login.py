@@ -1,3 +1,4 @@
+from time import sleep
 from django.contrib.auth import login
 from django.http import HttpResponse, JsonResponse
 from mongoengine import DoesNotExist
@@ -15,16 +16,7 @@ class LoginView(APIView, AuthenticationMixin):
         return JsonResponse(self.get_authentication_representation(request))
 
     def post(self, request, *args, **kwargs):
-        errors = {'loginError': []}
-        user = None
-        return JsonResponse(LoginSerializer().to_representation(user))
-        try:
-            user = UserProfile.objects.get(email=request.DATA.get('email'))
-        except DoesNotExist:
-            errors['loginError'].append('User not found!')
-        if user is not None and user.check_password(request.DATA.get('password')):
-            login(request, user)
-            #request.session.set_expiry(60 * 60 * 1)
-        auth = self.get_authentication_representation(request)
-        auth.update(errors)
-        return JsonResponse(auth)
+        serializer = LoginSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.login_user(request)
+        return JsonResponse(serializer.to_representation(request.user, request.DATA))
