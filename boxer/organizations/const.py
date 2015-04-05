@@ -27,5 +27,5 @@ Walki organizowane przez IBF odbywają się w 17 kategoriach wagowych.
 13 czerwca 1997 jako pierwszy Polak Dariusz Michalczewski zdobył pas IBF w wadze półciężkiej pokonując w Oberhausen Virgila Hilla
 25 listopada 2006 Krzysztof Włodarczyk jako drugi Polak został mistrzem świata federacji IBF pokonując w Warszawie niejednogłośnie na punkty Steve'a Cunninghama zdobywając pas mistrza świata federacji IBF w kategorii junior ciężkiej. W pierwszej obronie pasa a jednocześnie w walce rewanżowej w Katowicach zwyciężył Amerykanin, pokonując Polaka dwa do remisu.
 11 grudnia 2008 roku mistrzem świata federacji IBF został Tomasz Adamek. Pokonał on tego dnia na punkty w hali Prudential Center w Newark w stanie New Jersey Amerykanina Steve'a Cunninghama i wywalczył mistrzostwo świata w kategorii juniorciężkiej. W 2009 roku, tuż przed walką z Andrzejem Gołotą zrzekł się pasa mistrzowskiego federacji IBF w wadze junior-ciężkiej.'''
-    )
+    ),
 )
