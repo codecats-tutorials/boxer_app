@@ -44,8 +44,10 @@ INSTALLED_APPS = (
     'organizations',
     'userprofile',
     'player',
+    'coach',
 
     'mongoengine.django.mongo_auth',
+    'compressor',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -108,6 +110,13 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "front"),
 )
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
+
 AUTH_USER_MODEL = 'mongo_auth.MongoUser'
 MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
 
@@ -126,3 +135,7 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 #from kombu import serialization
 #serialization.registry._decoders.pop("application/x-python-serialize")
+
+
+COMPRESS_ENABLED = False
+COMPRESS_OFFLINE = False
