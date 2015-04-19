@@ -4,7 +4,7 @@ import main
 
 urlpatterns = patterns('',
     url(r'^', include('main.urls'), name='main'),
-    url(r'^coach/?', include('coach.urls'), name='coach'),
+    url(r'^coaches/?', include('coach.urls'), name='coach'),
     url(r'^players/?', include('player.urls'), name='player'),
     url(r'^acl/?', include('acl.urls'), name='acl'),
     url(r'^organizations/?', include('organizations.urls'), name='organizations'),

@@ -4,6 +4,7 @@ from coach.views.main import Main
 
 
 urlpatterns = patterns('',
+  url(r'^(?P<id>.+)/?', Main.as_view(), name='index_one'),
    url(r'^', Main.as_view(), name='index'),
 
 )

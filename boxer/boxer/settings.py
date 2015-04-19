@@ -102,6 +102,7 @@ MEDIA_ROOT = PROJECT_PATH + '/media/'
 
 TEMPLATE_DIRS = (
     PROJECT_PATH + '/templates/',
+    PROJECT_PATH + '/../front/app/',
     PROJECT_PATH + '/../%s/app/'%STATIC_URL.strip('/'),
 )
 
