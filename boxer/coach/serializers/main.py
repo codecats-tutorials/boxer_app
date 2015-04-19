@@ -8,8 +8,8 @@ class CoachSerializer(serializers.Serializer):
     id = serializers.CharField(required=False)
     name = serializers.CharField()
     surname = serializers.CharField()
-    rate = serializers.IntegerField(min_value=0, max_value=5, required=False)
-    players = serializers.ListField()
+    rate = serializers.IntegerField(min_value=0, max_value=5, allow_null=True, required=False)
+    players = serializers.ListField(allow_null=True)
 
     def __init__(self, *args, **kwargs):
         if 'data' in kwargs:
