@@ -22,7 +22,7 @@ class Main(APIView):
             votes = UserCoachVote.objects(coach__in=coaches)
             for coach in coaches:
                 for vote in votes:
-                    if vote.coach == coach:
+                    if vote.coach.pk == coach.pk:
                         coach.rate = vote.rate
             response = {'data': map(lambda x: CoachSerializer(x).data, coaches)}
 
@@ -30,7 +30,6 @@ class Main(APIView):
 
 
     def post(self, request, *args, **kwargs):
-
         serializer = CoachSerializer(data=request.DATA.copy())
         if serializer.is_valid():
             coach = serializer.save()
@@ -42,15 +41,13 @@ class Main(APIView):
         return JsonResponse(response)
 
     def put(self, request, *args, **kwargs):
-        data = request.DATA.copy()
         serializer = CoachSerializer(data=request.DATA.copy())
         if serializer.is_valid():
             coach  = serializer.save()
             coach.save()
             response = CoachSerializer(coach).data
         else:
-            data['errors']  = serializer.errors
-            response = data
+            response = {'errors': serializer.errors}
 
         return JsonResponse(response)
 

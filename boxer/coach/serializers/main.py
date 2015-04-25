@@ -14,16 +14,23 @@ class CoachSerializer(serializers.Serializer):
     def __init__(self, *args, **kwargs):
         if 'data' in kwargs:
             kwargs['data']['players'] = kwargs['data'].get('selectedPlayers')
+            if 'rate' in kwargs['data']:
+                del kwargs['data']['rate']
 
         super(CoachSerializer, self).__init__(*args, **kwargs)
 
     def update(self, instance, validated_data):
         for v in validated_data:
             setattr(instance, v, validated_data.get(v))
+        instance.players
         return instance
 
     def create(self, validated_data):
-        return Coach(**validated_data)
+        instance = Coach()
+        for v in validated_data:
+            setattr(instance, v, validated_data.get(v))
+        instance.players
+        return instance
 
     def to_representation(self, instance):
         represent = super(CoachSerializer, self).to_representation(instance)
