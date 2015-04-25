@@ -48,6 +48,7 @@ INSTALLED_APPS = (
 
     'mongoengine.django.mongo_auth',
     'compressor',
+    'haystack',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -140,3 +141,11 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 COMPRESS_ENABLED = False
 COMPRESS_OFFLINE = False
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://192.168.33.10:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}

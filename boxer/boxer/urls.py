@@ -11,5 +11,7 @@ urlpatterns = patterns('',
     url(r'^users/?', include('userprofile.urls'), name='users'),
     url(r'^vote/?', include('vote.urls'), name='vote'),
 
+    (r'^search/', include('haystack.urls')),
+
     url(r'^admin/', include(admin.site.urls)),
 )
