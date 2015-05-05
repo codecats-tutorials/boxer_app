@@ -49,6 +49,8 @@ INSTALLED_APPS = (
     'mongoengine.django.mongo_auth',
     'compressor',
     'haystack',
+    'mongonaut',
+    'disqus',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -135,8 +137,8 @@ CELERY_RESULT_BACKEND = "amqp://"
 CELERY_ACCEPT_CONTENT = ['json', 'pickle']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-#from kombu import serialization
-#serialization.registry._decoders.pop("application/x-python-serialize")
+from kombu import serialization
+serialization.registry._decoders.pop("application/x-python-serialize")
 
 
 COMPRESS_ENABLED = False
@@ -149,3 +151,4 @@ HAYSTACK_CONNECTIONS = {
         'INDEX_NAME': 'haystack',
     },
 }
+
